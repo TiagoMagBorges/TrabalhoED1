@@ -3,18 +3,18 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef struct elem{
+typedef struct elemento{
     char string[30];
-    struct elem *prox;    
-}Elem;
+    struct elemento *prox;    
+}Elemento;
 
 typedef struct fila{
-    Elem *primeiro;
-    Elem *ultimo;
+    Elemento *primeiro;
+    Elemento *ultimo;
 }Fila;
 
 typedef struct pilha{
-    Elem *topo;
+    Elemento *topo;
 }Pilha;
 
 void criarF(Fila *x);
@@ -72,7 +72,7 @@ bool vaziaF(Fila *x){
 }
 
 bool inserir(Fila *x, char *string){
-    Elem *y = (Elem*) malloc(sizeof(Elem));
+    Elemento *y = (Elemento*) malloc(sizeof(Elemento));
     if(y == NULL){
         return false;
     }else{
@@ -89,7 +89,7 @@ bool inserir(Fila *x, char *string){
 }
 
 bool retirar(Fila *x, char *string){
-    Elem *y = x->primeiro;
+    Elemento *y = x->primeiro;
     if(y == NULL){
         return false;
     }else{
@@ -117,7 +117,7 @@ bool vaziaP(Pilha *x){
 }
 
 bool empilha(Pilha *x, char *string){
-    Elem *y = (Elem*) malloc(sizeof(Elem));
+    Elemento *y = (Elemento*) malloc(sizeof(Elemento));
     if(y != NULL){
         strcpy(y->string, string);
         y->prox = x->topo;
@@ -130,7 +130,7 @@ bool empilha(Pilha *x, char *string){
 
 bool desempilha(Pilha *x, char *string){
     if(!vaziaP(x)){
-        Elem *y = x->topo;
+        Elemento *y = x->topo;
         x->topo = y->prox;
         y->prox = NULL;
         strcpy(string, y->string);
