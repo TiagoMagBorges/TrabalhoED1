@@ -3,33 +3,28 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef struct elemF{
-    int valor;
-    struct elemF *prox;    
-}ElemF;
+typedef struct elem{
+    char string[30];
+    struct elem *prox;    
+}Elem;
 
 typedef struct fila{
-    ElemF *primeiro;
-    ElemF *ultimo;
+    Elem *primeiro;
+    Elem *ultimo;
 }Fila;
 
-typedef struct elemP{
-    int valor;
-    struct elemP *prox;
-}ElemP;
-
 typedef struct pilha{
-    ElemP *topo;
+    Elem *topo;
 }Pilha;
 
 void criarF(Fila *x);
 bool vaziaF(Fila *x);
-bool inserir(Fila *x, int valor);
-bool retirar(Fila *x, int *valor);
+bool inserir(Fila *x, char *string);
+bool retirar(Fila *x, char *string);
 void criarP(Pilha *x);
 bool vaziaP(Pilha *x);
-bool empilha(Pilha *x, int valor);
-bool desempilha(Pilha *x, int *valor);
+bool empilha(Pilha *x, char *string);
+bool desempilha(Pilha *x, char *string);
 void imprimeF(Fila *x);
 void imprimeP(Pilha *x);
 
@@ -43,7 +38,7 @@ int main(){
             exit(1);
         }
     }
-    // Inicialização da Fila e da Pilha.
+    // Inicialização das variáveis.
     Fila *f = (Fila*) malloc(sizeof(Fila));
     Pilha *p = (Pilha*) malloc(sizeof(Pilha));
     if(f == NULL || p == NULL){
@@ -52,9 +47,7 @@ int main(){
     }
     criarF(f);
     criarP(p);
-
-
-
+    char *str = (char*) malloc(30*sizeof(char));
 
     // Liberando as Filas e Pilhas e fechando o arquivo.
     free(f);
@@ -63,12 +56,27 @@ int main(){
     return 0;
 }
 
-bool inserir(Fila *x, int valor){
-    ElemF *y = (ElemF*) malloc(sizeof(ElemF));
+void criarF(Fila *x){
+    if(x != NULL){
+        x->primeiro = NULL;
+        x->ultimo = NULL;
+    }
+}
+
+bool vaziaF(Fila *x){
+    if(x->primeiro == NULL){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool inserir(Fila *x, char *string){
+    Elem *y = (Elem*) malloc(sizeof(Elem));
     if(y == NULL){
         return false;
     }else{
-        y->valor = valor;
+        strcpy(y->string, string);
         y->prox = NULL;
         if(x->primeiro == NULL){
             x->primeiro = y;
@@ -80,14 +88,14 @@ bool inserir(Fila *x, int valor){
     }
 }
 
-bool retirar(Fila *x, int *valor){
-    ElemF *y = x->primeiro;
+bool retirar(Fila *x, char *string){
+    Elem *y = x->primeiro;
     if(y == NULL){
         return false;
     }else{
         x->primeiro = y->prox;
         y->prox = NULL;
-        *valor = y->valor;
+        strcpy(string, y->string);
         free(y);
         if(x->primeiro == NULL){
             x->ultimo = NULL;
@@ -108,10 +116,10 @@ bool vaziaP(Pilha *x){
     }
 }
 
-bool empilha(Pilha *x, int valor){
-    ElemP *y = (ElemP*) malloc(sizeof(ElemP));
+bool empilha(Pilha *x, char *string){
+    Elem *y = (Elem*) malloc(sizeof(Elem));
     if(y != NULL){
-        y->valor = valor;
+        strcpy(y->string, string);
         y->prox = x->topo;
         x->topo = y;
         return true;
@@ -120,12 +128,12 @@ bool empilha(Pilha *x, int valor){
     }
 }
 
-bool desempilha(Pilha *x, int *valor){
+bool desempilha(Pilha *x, char *string){
     if(!vaziaP(x)){
-        ElemP *y = x->topo;
+        Elem *y = x->topo;
         x->topo = y->prox;
         y->prox = NULL;
-        *valor = y->valor;
+        strcpy(string, y->string);
         free(y);
         return true;
     }else{
@@ -134,9 +142,17 @@ bool desempilha(Pilha *x, int *valor){
 }
 
 void imprimeF(Fila *x){
-
+    char *str = (char*) malloc(30*sizeof(char));
+    while (!vaziaF(x)){
+        retirar(x, str);
+        printf("%s\n", str);
+    }
 }
 
 void imprimeP(Pilha *x){
-
+    char *str = (char*) malloc(30*sizeof(char));
+    while (!vaziaP(x)){
+        desempilha(x, str);
+        printf("%s\n", str);
+    }
 }
