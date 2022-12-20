@@ -30,50 +30,37 @@ void criarP(Pilha *x);
 bool vaziaP(Pilha *x);
 bool empilha(Pilha *x, int valor);
 bool desempilha(Pilha *x, int *valor);
+void imprimeF(Fila *x);
+void imprimeP(Pilha *x);
 
 int main(){
+    // Abertura do arquivo para leitura e/ou escrita.
+    FILE *arquivo = fopen("arquivo.txt", "rb+");
+    if (arquivo == NULL) {
+        arquivo = fopen("arquivo.txt", "wb+");
+        if (arquivo == NULL) {
+            printf("Nao foi possivel abrir o arquivo.\n");
+            exit(1);
+        }
+    }
+    // Inicialização da Fila e da Pilha.
     Fila *f = (Fila*) malloc(sizeof(Fila));
-    criarF(f);
     Pilha *p = (Pilha*) malloc(sizeof(Pilha));
-    criarP(p);
     if(f == NULL || p == NULL){
+        printf("Erro de alocação.\n");
         exit(1);
     }
-    int x;
-    fflush(stdin);
-    for(int i = 0; i < 10; i++){
-        scanf(" %d", &x);
-        empilha(p, x);
-        inserir(f, x);
-    }
-    printf("Pilha: ");
-    while(!vaziaP(p)){
-        desempilha(p, &x);
-        printf("%d ", x);
-    }
-    printf("\nFila: ");
-    while(!vaziaF(f)){
-        retirar(f, &x);
-        printf("%d ", x);
-    }
-    printf("\n");
+    criarF(f);
+    criarP(p);
 
+
+
+
+    // Liberando as Filas e Pilhas e fechando o arquivo.
     free(f);
     free(p);
+    fclose(arquivo);
     return 0;
-}
-
-void criarF(Fila *x){
-    x->primeiro = NULL;
-    x->ultimo = NULL;
-}
-
-bool vaziaF(Fila *x){
-    if(x->primeiro == NULL){
-        return true;
-    }else{
-        return false;
-    }
 }
 
 bool inserir(Fila *x, int valor){
@@ -144,4 +131,12 @@ bool desempilha(Pilha *x, int *valor){
     }else{
         return false;
     }
+}
+
+void imprimeF(Fila *x){
+
+}
+
+void imprimeP(Pilha *x){
+
 }
