@@ -88,7 +88,7 @@ void criarF(Fila *x){
 /*
     * Nome: destruirF.
     * Entrada: 1 ponteiro para Fila.
-    * Processo: Caso a Fila inserida exista, libera a sua memoria.
+    * Processo: Caso a Fila inserida exista, e desalocada.
 */
 void destruirF(Fila *x){
     if(x != NULL){
@@ -135,6 +135,15 @@ bool inserir(Fila *x, char *string){
     }
 }
 
+/*
+    * Nome: retirar.
+    * Entrada: 1 ponteiro para Fila e 1 ponteiro para char.
+    * Processo: Cria um ponteiro para Elemento e aponta ele para primeiro Elemento da Fila. Checa se a fila esta vazia,
+    se não estiver, o primeiro da Fila vai receber o próximo do Elemento criado que vai apontar para NULL. Em sequencia
+    o vetor de char e copiado para o ponteiro para char inserido na funcao. O Elemento alocado e desalocado, e faz-se um
+    ultimo teste para testar se o primeiro da fila e NULL, caso seja true, o ultimo tambem recebe NULL.
+    * Saida: True caso a operacao tenha funcionado, False caso contrario.
+*/
 bool retirar(Fila *x, char *string){
     Elemento *y = x->primeiro;
     if(y == NULL){
@@ -151,10 +160,20 @@ bool retirar(Fila *x, char *string){
     }
 }
 
+/*
+    * Nome: criarP.
+    * Entrada: 1 ponteiro para Pilha.
+    * Processo: Caso a Pilha inserida exista, atribui NULL ao ponteiro de Elemento topo.
+*/
 void criarP(Pilha *x){
     x->topo = NULL;
 }
 
+/*
+    * Nome: destruirP.
+    * Entrada: 1 ponteiro para Pilha.
+    * Processo: Caso a Pilha inserida exista, e desalocada.
+*/
 void destruirP(Pilha *x){
     if(x != NULL){
         free(x);
@@ -175,6 +194,13 @@ bool vaziaP(Pilha *x){
     }
 }
 
+/*
+    * Nome: empilha.
+    * Entrada: 1 ponteiro para Pilha e 1 ponteiro para char.
+    * Processo: Cria um Elemento, atribui a ele o ponteiro de char inserido na funcao e aponta o proximo parao topo
+    da pilha, que por sua vez aponta para o Elemento criado.
+    * Saida: True caso a operacao tenha funcionado, False caso contrario.
+*/
 bool empilha(Pilha *x, char *string){
     Elemento *y = (Elemento*) malloc(sizeof(Elemento));
     if(y != NULL){
@@ -187,6 +213,14 @@ bool empilha(Pilha *x, char *string){
     }
 }
 
+/*
+    * Nome: desempilha.
+    * Entrada: 1 ponteiro para Pilha e 1 ponteiro para char.
+    * Processo: Testa se a Pilha esta vazia, se não estiver, cria um ponteiro para Elemento e aponta ele para o topo da 
+    Pilha. Em seguida, o topo da Pilha vai apontar para o proximo do Elemento criado, que vai apontar para NULL. Em sequencia
+    o vetor de char e copiado para o ponteiro para char inserido na funcao, e o Elemento criado e desalocado.
+    * Saida: True caso a operacao tenha funcionado, False caso contrario.
+*/
 bool desempilha(Pilha *x, char *string){
     if(!vaziaP(x)){
         Elemento *y = x->topo;
@@ -200,6 +234,12 @@ bool desempilha(Pilha *x, char *string){
     }
 }
 
+/*
+    * Nome: imprimeF.
+    * Entrada: 1 ponteiro para Fila.
+    * Processo: Cria um ponteiro para char de 30 posicoes, e, enquanto a Fila nao estiver vazia, retira um Elemento e coloca
+    seu valor no ponteiro de char criado e o imprime.
+*/
 void imprimeF(Fila *x){
     char *str = (char*) malloc(30*sizeof(char));
     while (!vaziaF(x)){
@@ -208,6 +248,12 @@ void imprimeF(Fila *x){
     }
 }
 
+/*
+    * Nome: imprimeP.
+    * Entrada: 1 ponteiro para Pilha.
+    * Processo: Cria um ponteiro para char de 30 posicoes, e, enquanto a Pilha nao estiver vazia, desempilha um Elemento e coloca
+    seu valor no ponteiro de char criado e o imprime.
+*/
 void imprimeP(Pilha *x){
     char *str = (char*) malloc(30*sizeof(char));
     while (!vaziaP(x)){
