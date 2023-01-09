@@ -61,6 +61,7 @@ int main(){
         printf("Erro de alocação.\n");
         exit(1);
     }
+    // Item *cardapio = (Item*) malloc(x*sizeof(Item));
     criarF(f);
     criarP(p);
     char *str = (char*) malloc(30*sizeof(char));
