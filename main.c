@@ -31,6 +31,18 @@ typedef struct pilha{
     Elemento *topo;
 }Pilha;
 
+/*
+    * Definicao da estrutura de dados Item.
+    * - 1 int para o id do item.
+    * - 1 vetor de char de 50 posicoes para a descricao do item.
+    * - 1 float para o preco do item.
+*/
+typedef struct item{
+    int id;
+    char descricao[50];
+    float preco;
+}Item;
+
 void criarF(Fila *x);
 void destruirF(Fila *x);
 bool vaziaF(Fila *x);
@@ -61,7 +73,7 @@ int main(){
         printf("Erro de alocação.\n");
         exit(1);
     }
-    // Item *cardapio = (Item*) malloc(x*sizeof(Item));
+    Item *cardapio = (Item*) malloc(10*sizeof(Item)); // O cardapio tera 10 Itens.
     criarF(f);
     criarP(p);
     char *str = (char*) malloc(30*sizeof(char));
