@@ -81,6 +81,8 @@ int main(){
     // Liberando as Filas e Pilhas e fechando o arquivo.
     destruirF(f);
     destruirP(p);
+    free(cardapio);
+    free(str);
     fclose(arquivo);
     return 0;
 }
