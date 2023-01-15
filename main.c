@@ -55,6 +55,7 @@ bool empilha(Pilha *x, char *string);
 bool desempilha(Pilha *x, char *string);
 void imprimeF(Fila *x);
 void imprimeP(Pilha *x);
+void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor);
 
 int main(){
     // Abertura do arquivo para leitura e/ou escrita.
@@ -73,10 +74,22 @@ int main(){
         printf("Erro de alocação.\n");
         exit(1);
     }
-    Item *cardapio = (Item*) malloc(10*sizeof(Item)); // O cardapio tera 10 Itens.
+    Item *cardapio = (Item*) malloc(10*sizeof(Item));
     criarF(f);
     criarP(p);
     char *str = (char*) malloc(30*sizeof(char));
+
+    // Iniciando o cardapio.
+    insereCardapio(1, "Pizza Bacon", 29.99, 0, cardapio);
+    insereCardapio(2, "Pizza Marguerita", 34.99, 1, cardapio);
+    insereCardapio(3, "Pizza Frango e Catupiry", 39.99, 2, cardapio);
+    insereCardapio(4, "Pizza 4 Queijos", 44.99, 3, cardapio);
+    insereCardapio(5, "Pizza Moda", 49.99, 4, cardapio);
+    insereCardapio(6, "Refrigerante Lata", 5, 5, cardapio);
+    insereCardapio(7, "Refrigerante 2L", 7, 6, cardapio);
+    insereCardapio(8, "Suco 500ml", 8, 7, cardapio);
+    insereCardapio(9, "Suco 1L", 15, 8, cardapio);
+    insereCardapio(10, "Cerveja Lata", 5, 9, cardapio);
 
     // Liberando as Filas e Pilhas e fechando o arquivo.
     destruirF(f);
@@ -275,4 +288,16 @@ void imprimeP(Pilha *x){
         desempilha(x, str);
         printf("%s\n", str);
     }
+}
+
+/*
+    * Nome: insereCardapio.
+    * Entrada: 1 int para o id, 1 ponteiro para char com a descricao, 1 float para o preco e 1 int para o indice no vetor, 1 ponteiro
+    * para o vetor de Itens.
+    * Processo: Insere no vetor de Itens as informacoes passadas.
+*/
+void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor){
+    vetor[indice].id = id;
+    strcpy(vetor[indice].descricao, descricao);
+    vetor[indice].preco = preco;
 }
