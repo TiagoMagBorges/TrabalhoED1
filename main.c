@@ -56,6 +56,7 @@ bool desempilha(Pilha *x, char *string);
 void imprimeF(Fila *x);
 void imprimeP(Pilha *x);
 void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor);
+void imprimeCardapio(Item *cardapio);
 
 int main(){
     // Abertura do arquivo para leitura e/ou escrita.
@@ -91,12 +92,40 @@ int main(){
     insereCardapio(9, "Suco 1L", 15, 8, cardapio);
     insereCardapio(10, "Cerveja Lata", 5, 9, cardapio);
 
+    // Menu do restaurante
+    int opcao;
+    do{
+        printf("0 - Sair\n1 - Cardapio\n2 - Fila de clientes\n3 - Comanda (lista) do cliente\n4 - Pilha de chocolates\n");
+        scanf("%d", &opcao);
+
+        switch(opcao){
+            case 0:
+                printf("Obrigado pela atencao, ate mais!\n");
+                break;
+            case 1:
+                imprimeCardapio(cardapio);
+                break;
+            case 2:
+                // Inserir função
+                break;
+            case 3:
+                // Inserir função
+                break;
+            case 4:
+                // Inserir função
+                break;
+            default:
+                printf("Opcao invalida\n");
+        }
+    }while(opcao != 0);
+   
     // Liberando as Filas e Pilhas e fechando o arquivo.
     destruirF(f);
     destruirP(p);
     free(cardapio);
     free(str);
     fclose(arquivo);
+   
     return 0;
 }
 
@@ -300,4 +329,13 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
     vetor[indice].id = id;
     strcpy(vetor[indice].descricao, descricao);
     vetor[indice].preco = preco;
+}
+
+ void imprimeCardapio(Item *vetor){
+    printf("\n");
+    for(int i = 0; i < 10; i++){
+        printf("\t%d. %s - %.2f", vetor[i].id, vetor[i].descricao, vetor[i].preco);
+        printf("\n");
+    }
+    printf("\n");
 }
