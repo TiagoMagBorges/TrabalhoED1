@@ -57,6 +57,7 @@ void imprimeF(Fila *x);
 void imprimeP(Pilha *x);
 void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor);
 void imprimeCardapio(Item *cardapio);
+void empilhaChocolates(Pilha *x);
 
 int main(){
     // Abertura do arquivo para leitura e/ou escrita.
@@ -112,7 +113,10 @@ int main(){
                 // Inserir função
                 break;
             case 4:
-                // Inserir função
+                empilhaChocolate(p, str);
+                printf("\nChocolates adiconados:\n");
+                imprimeP(p);
+                printf("\n");
                 break;
             default:
                 printf("Opcao invalida\n");
@@ -338,4 +342,14 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
         printf("\n");
     }
     printf("\n");
+}
+
+void empilhaChocolate(Pilha *x, char *str){
+    do{
+        fflush(stdin);
+        printf("Adicione um chocolate a pilha: ");
+        gets(str);
+        empilha(x, str);
+        printf("\n\tDeseja continuar adicionando?\n\t1- Sim    0 - Nao\n");
+    }while(getch() == '1');
 }
