@@ -4,32 +4,45 @@
 #include <string.h>
 
 /*
-    * Definicao da estrutura de dados Elemento.
-    * - 1 vetor de char de 30 posicoes.
-    * - 1 ponteiro para o próximo Elemento.
+    * Definicao da estrutura de dados ElementoId.
+    * - 1 inteiro que representa o id de um item do cardápio.
+    * - 1 ponteiro para o próximo ElementoId.
 */
-typedef struct elemento{
-    char string[30];
-    struct elemento *prox;    
-}Elemento;
-
-/*
-    * Definicao da estrutura de dados Fila.
-    * - 1 ponteiro para o primeiro Elemento da Fila.
-    * - 1 ponteiro para o ultimo Elemento da Fila.
-*/
-typedef struct fila{
-    Elemento *primeiro;
-    Elemento *ultimo;
-}Fila;
+typedef struct elementoId{
+    int id;
+    struct elementoId *prox;    
+}ElementoId;
 
 /*
     * Definicao da estrutura de dados Pilha.
-    * - 1 ponteiro para o Elemento que esta no topo da Pilha.
+    * - 1 ponteiro para o ElementoId que esta no topo da Pilha.
 */
-typedef struct pilha{
-    Elemento *topo;
-}Pilha;
+typedef struct pilhaId{
+    ElementoId *topo;
+}PilhaId;
+
+/*
+    * Definicao da estrutura de dados Cliente.
+    * - 1 string para o nome do Cliente.
+    * - 1 ponteiro para PilhaId para os itens comprados pelo Cliente.
+    * - 1 ponteiro para o próximo Cliente.
+*/
+
+typedef struct cliente{
+    char nome[30];
+    PilhaId *x;
+    struct cliente *prox;
+}Cliente;
+
+/*
+    * Definicao da estrutura de dados Fila.
+    * - 1 ponteiro para o primeiro Cliente da Fila.
+    * - 1 ponteiro para o ultimo Cliente da Fila.
+*/
+typedef struct fila{
+    Cliente *primeiro;
+    Cliente *ultimo;
+}Fila;
 
 /*
     * Definicao da estrutura de dados Item.
@@ -46,32 +59,24 @@ typedef struct item{
 void criarF(Fila *x);
 void destruirF(Fila *x);
 bool vaziaF(Fila *x);
-bool inserir(Fila *x, char *string);
-bool retirar(Fila *x, char *string);
-void criarP(Pilha *x);
-void destruirP(Pilha *x);
-bool vaziaP(Pilha *x);
-bool empilha(Pilha *x, char *string);
-bool desempilha(Pilha *x, char *string);
+bool inserir(Fila *x, char *string, PilhaId *p);
+bool retirar(Fila *x, char *string, PilhaId *p);
+void criarPId(PilhaId *x);
+void destruirP(PilhaId *x);
+bool vaziaPId(PilhaId *x);
+bool empilhaId(PilhaId *x, int id);
+bool desempilhaId(PilhaId *x, int *id);
 void imprimeF(Fila *x);
-void imprimeP(Pilha *x);
+void imprimePId(PilhaId *x);
 void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor);
 void imprimeCardapio(Item *cardapio);
-void empilhaChocolates(Pilha *x, char *str);
+void empilhaChocolates(PilhaId *x, char *str);
+void inserirCliente(Item *cardapio, Fila *f);
 
 int main(){
-    // Abertura do arquivo para leitura e/ou escrita.
-    FILE *arquivo = fopen("arquivo.bin", "rb+");
-    if (arquivo == NULL) {
-        arquivo = fopen("arquivo.bin", "wb+");
-        if (arquivo == NULL) {
-            printf("Nao foi possivel abrir o arquivo.\n");
-            exit(1);
-        }
-    }
     // Inicialização das variáveis.
     Fila *f = (Fila*) malloc(sizeof(Fila));
-    Pilha *p = (Pilha*) malloc(sizeof(Pilha));
+    PilhaId *p = (PilhaId*) malloc(sizeof(PilhaId));
     if(f == NULL || p == NULL){
         printf("Erro de alocação.\n");
         exit(1);
@@ -79,7 +84,7 @@ int main(){
     Item *cardapio = (Item*) malloc(10*sizeof(Item));
     char *str = (char*) malloc(30*sizeof(char));
     criarF(f);
-    criarP(p);
+    criarPId(p);
 
     // Iniciando o cardapio.
     insereCardapio(1, "Pizza Bacon", 29.99, 0, cardapio);
@@ -96,7 +101,7 @@ int main(){
     // Menu do restaurante
     int opcao;
     do{
-        printf("0 - Sair\n1 - Cardapio\n2 - Fila de clientes\n3 - Comanda (lista) do cliente\n4 - Pilha de chocolates\n");
+        printf("0 - Sair\n1 - Imprimir cardapio\n2 - Inserir Cliente na Fila\n3 - Fazer chekout de todos os clientes da fila\n");
         scanf(" %d", &opcao);
 
         switch(opcao){
@@ -107,28 +112,27 @@ int main(){
                 imprimeCardapio(cardapio);
                 break;
             case 2:
-                // Inserir função
+                inserirCliente(cardapio, f);
                 break;
             case 3:
-                // Inserir função
+                imprimeF(f);
                 break;
             case 4:
-                empilhaChocolate(p, str);
-                printf("\nChocolates adiconados:\n");
-                imprimeP(p);
-                printf("\n");
+                //empilhaChocolate(p, str);
+                //printf("\nChocolates adiconados:\n");
+                //imprimeP(p);
+                //printf("\n");
                 break;
             default:
                 printf("Opcao invalida\n");
         }
     }while(opcao != 0);
    
-    // Liberando as Filas e Pilhas e fechando o arquivo.
+    // Liberando memória.
     destruirF(f);
     destruirP(p);
     free(cardapio);
     free(str);
-    fclose(arquivo);
    
     return 0;
 }
@@ -179,12 +183,15 @@ bool vaziaF(Fila *x){
     para o primeiro Elemento da Fila, e caso não esteja vazia, atribui ao ultimo Elemento da Fila.
     * Saida: True caso a operacao tenha funcionado, False caso contrario.
 */
-bool inserir(Fila *x, char *string){
-    Elemento *y = (Elemento*) malloc(sizeof(Elemento));
+bool inserir(Fila *x, char *string, PilhaId *p){
+    Cliente *y = (Cliente*) malloc(sizeof(Cliente));
     if(y == NULL){
         return false;
     }else{
-        strcpy(y->string, string);
+        strcpy(y->nome, string);
+        y->x = (PilhaId*) malloc(sizeof(PilhaId));
+        criarPId(y->x);
+        y->x->topo = p->topo;
         y->prox = NULL;
         if(vaziaF(x)){
             x->primeiro = y;
@@ -205,14 +212,15 @@ bool inserir(Fila *x, char *string){
     ultimo teste para testar se o primeiro da fila e NULL, caso seja true, o ultimo tambem recebe NULL.
     * Saida: True caso a operacao tenha funcionado, False caso contrario.
 */
-bool retirar(Fila *x, char *string){
-    Elemento *y = x->primeiro;
+bool retirar(Fila *x, char *string, PilhaId *p){
+    Cliente *y = x->primeiro;
     if(y == NULL){
         return false;
     }else{
         x->primeiro = y->prox;
         y->prox = NULL;
-        strcpy(string, y->string);
+        strcpy(string, y->nome);
+        p->topo = y->x->topo;
         free(y);
         if(x->primeiro == NULL){
             x->ultimo = NULL;
@@ -226,7 +234,7 @@ bool retirar(Fila *x, char *string){
     * Entrada: 1 ponteiro para Pilha.
     * Processo: Caso a Pilha inserida exista, atribui NULL ao ponteiro de Elemento topo.
 */
-void criarP(Pilha *x){
+void criarPId(PilhaId *x){
     x->topo = NULL;
 }
 
@@ -235,7 +243,7 @@ void criarP(Pilha *x){
     * Entrada: 1 ponteiro para Pilha.
     * Processo: Caso a Pilha inserida exista, e desalocada.
 */
-void destruirP(Pilha *x){
+void destruirP(PilhaId *x){
     if(x != NULL){
         free(x);
     }
@@ -247,7 +255,7 @@ void destruirP(Pilha *x){
     * Processo: Verifica se a Pilha esta vazia checando se o Elemento topo e NULL.
     * Saida: True caso o topo seja NULL, False caso contrario.
 */
-bool vaziaP(Pilha *x){
+bool vaziaPId(PilhaId *x){
     if(x->topo == NULL){
         return true;
     }else{
@@ -262,10 +270,10 @@ bool vaziaP(Pilha *x){
     da pilha, que por sua vez aponta para o Elemento criado.
     * Saida: True caso a operacao tenha funcionado, False caso contrario.
 */
-bool empilha(Pilha *x, char *string){
-    Elemento *y = (Elemento*) malloc(sizeof(Elemento));
+bool empilhaId(PilhaId *x, int id){
+    ElementoId *y = (ElementoId*) malloc(sizeof(ElementoId));
     if(y != NULL){
-        strcpy(y->string, string);
+        y->id = id;
         y->prox = x->topo;
         x->topo = y;
         return true;
@@ -282,12 +290,12 @@ bool empilha(Pilha *x, char *string){
     o vetor de char e copiado para o ponteiro para char inserido na funcao, e o Elemento criado e desalocado.
     * Saida: True caso a operacao tenha funcionado, False caso contrario.
 */
-bool desempilha(Pilha *x, char *string){
-    if(!vaziaP(x)){
-        Elemento *y = x->topo;
+bool desempilhaPId(PilhaId *x, int *id){
+    if(!vaziaPId(x)){
+        ElementoId *y = x->topo;
         x->topo = y->prox;
         y->prox = NULL;
-        strcpy(string, y->string);
+        *id = y->id;
         free(y);
         return true;
     }else{
@@ -298,14 +306,28 @@ bool desempilha(Pilha *x, char *string){
 /*
     * Nome: imprimeF.
     * Entrada: 1 ponteiro para Fila.
-    * Processo: Cria um ponteiro para char de 30 posicoes, e, enquanto a Fila nao estiver vazia, retira um Elemento e coloca
+    * Processo: Cria um ponteiro para char de 30 posicoes, e, enquanto a Fila nao estiver vazia, retira um Id e coloca
     seu valor no ponteiro de char criado e o imprime.
 */
 void imprimeF(Fila *x){
-    char *str = (char*) malloc(30*sizeof(char));
-    while (!vaziaF(x)){
-        retirar(x, str);
-        printf("%s\n", str);
+    if(vaziaF(x)){
+        printf("Fila Vazia.\n");
+    }else{
+        PilhaId *p = (PilhaId*) malloc(sizeof(PilhaId));
+        criarPId(p);
+        char *nome = (char*) malloc(30*sizeof(char));
+        int id;
+        while (!vaziaF(x)){
+            retirar(x, nome, p);
+            printf("\nNome: %s\nItens: ");
+            while(!vaziaPId(p)){
+                desempilhaPId(p, &id);
+                printf("%d ", id);
+            }
+            printf("\n");
+        }
+        free(p);
+        free(nome);
     }
 }
 
@@ -315,11 +337,11 @@ void imprimeF(Fila *x){
     * Processo: Cria um ponteiro para char de 30 posicoes, e, enquanto a Pilha nao estiver vazia, desempilha um Elemento e coloca
     seu valor no ponteiro de char criado e o imprime.
 */
-void imprimeP(Pilha *x){
-    char *str = (char*) malloc(30*sizeof(char));
-    while (!vaziaP(x)){
-        desempilha(x, str);
-        printf("%s\n", str);
+void imprimePId(PilhaId *x){
+    int y;
+    while (!vaziaPId(x)){
+        desempilhaPId(x, &y);
+        printf("%d\n", y);
     }
 }
 
@@ -344,7 +366,7 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
     printf("\n");
 }
 
-void empilhaChocolates(Pilha *x, char *str){
+/*void empilhaChocolates(Pilha *x, char *str){
     do{
         fflush(stdin);
         printf("Adicione um chocolate a pilha: ");
@@ -352,4 +374,25 @@ void empilhaChocolates(Pilha *x, char *str){
         empilha(x, str);
         printf("\n\tDeseja continuar adicionando?\n\t1- Sim    0 - Nao\n");
     }while(getch() == '1');
+}
+*/
+
+void inserirCliente(Item *cardapio, Fila *f){
+    PilhaId *x = (PilhaId*) malloc(sizeof(PilhaId));
+    criarPId(x);
+    char *nome = (char*) malloc(30*sizeof(char));
+    int id, ctrl = 1;
+    printf("Insira seu nome: ");fflush(stdin);
+    gets(nome);
+    imprimeCardapio(cardapio);
+    do{
+        printf("Escolhe um item do cardapio: ");
+        scanf(" %d", &id);
+        empilhaId(x, id);
+        printf("Mais alguma coisa? 1-Sim | 0-Nao ");
+        scanf(" %d", &ctrl);
+    }while(ctrl != 0);
+    inserir(f, nome, x);
+    free(x);
+    free(nome);
 }
