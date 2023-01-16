@@ -60,9 +60,9 @@ void imprimeCardapio(Item *cardapio);
 
 int main(){
     // Abertura do arquivo para leitura e/ou escrita.
-    FILE *arquivo = fopen("arquivo.txt", "rb+");
+    FILE *arquivo = fopen("arquivo.bin", "rb+");
     if (arquivo == NULL) {
-        arquivo = fopen("arquivo.txt", "wb+");
+        arquivo = fopen("arquivo.bin", "wb+");
         if (arquivo == NULL) {
             printf("Nao foi possivel abrir o arquivo.\n");
             exit(1);
@@ -78,7 +78,6 @@ int main(){
     Item *cardapio = (Item*) malloc(10*sizeof(Item));
     criarF(f);
     criarP(p);
-    char *str = (char*) malloc(30*sizeof(char));
 
     // Iniciando o cardapio.
     insereCardapio(1, "Pizza Bacon", 29.99, 0, cardapio);
@@ -96,7 +95,7 @@ int main(){
     int opcao;
     do{
         printf("0 - Sair\n1 - Cardapio\n2 - Fila de clientes\n3 - Comanda (lista) do cliente\n4 - Pilha de chocolates\n");
-        scanf("%d", &opcao);
+        scanf(" %d", &opcao);
 
         switch(opcao){
             case 0:
@@ -123,7 +122,6 @@ int main(){
     destruirF(f);
     destruirP(p);
     free(cardapio);
-    free(str);
     fclose(arquivo);
    
     return 0;
