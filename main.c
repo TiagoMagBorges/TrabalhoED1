@@ -57,7 +57,7 @@ void imprimeF(Fila *x);
 void imprimeP(Pilha *x);
 void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor);
 void imprimeCardapio(Item *cardapio);
-void empilhaChocolates(Pilha *x);
+void empilhaChocolates(Pilha *x, char *str);
 
 int main(){
     // Abertura do arquivo para leitura e/ou escrita.
@@ -344,7 +344,7 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
     printf("\n");
 }
 
-void empilhaChocolate(Pilha *x, char *str){
+void empilhaChocolates(Pilha *x, char *str){
     do{
         fflush(stdin);
         printf("Adicione um chocolate a pilha: ");
