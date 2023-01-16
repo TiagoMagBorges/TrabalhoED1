@@ -77,6 +77,7 @@ int main(){
         exit(1);
     }
     Item *cardapio = (Item*) malloc(10*sizeof(Item));
+    char *str = (char*) malloc(30*sizeof(char));
     criarF(f);
     criarP(p);
 
@@ -126,6 +127,7 @@ int main(){
     destruirF(f);
     destruirP(p);
     free(cardapio);
+    free(str);
     fclose(arquivo);
    
     return 0;
