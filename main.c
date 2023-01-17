@@ -65,7 +65,7 @@ void criarPId(PilhaId *x);
 void destruirP(PilhaId *x);
 bool vaziaPId(PilhaId *x);
 bool empilhaId(PilhaId *x, int id);
-bool desempilhaId(PilhaId *x, int *id);
+bool desempilhaPId(PilhaId *x, int *id);
 void imprimeF(Fila *x);
 void imprimePId(PilhaId *x);
 void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor);
