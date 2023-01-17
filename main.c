@@ -4,8 +4,8 @@
 #include <string.h>
 
 /*
-    * Definicao da estrutura de dados ElementoId.
-    * - 1 inteiro que representa o id de um item do cardápio.
+    * Definição da estrutura de dados ElementoId.
+    * - 1 int que representa o id de um item do cardápio.
     * - 1 ponteiro para o próximo ElementoId.
 */
 typedef struct elementoId{
@@ -14,17 +14,17 @@ typedef struct elementoId{
 }ElementoId;
 
 /*
-    * Definicao da estrutura de dados Pilha.
-    * - 1 ponteiro para o ElementoId que esta no topo da Pilha.
+    * Definição da estrutura de dados Pilha.
+    * - 1 ponteiro para o ElementoId que está no topo da Pilha.
 */
 typedef struct pilhaId{
     ElementoId *topo;
 }PilhaId;
 
 /*
-    * Definicao da estrutura de dados Cliente.
+    * Definição da estrutura de dados Cliente.
     * - 1 string para o nome do Cliente.
-    * - 1 ponteiro para PilhaId para os itens comprados pelo Cliente.
+    * - 1 ponteiro para PilhaId que armazena os itens comprados pelo Cliente.
     * - 1 ponteiro para o próximo Cliente.
 */
 
@@ -35,9 +35,9 @@ typedef struct cliente{
 }Cliente;
 
 /*
-    * Definicao da estrutura de dados Fila.
+    * Definição da estrutura de dados Fila.
     * - 1 ponteiro para o primeiro Cliente da Fila.
-    * - 1 ponteiro para o ultimo Cliente da Fila.
+    * - 1 ponteiro para o último Cliente da Fila.
 */
 typedef struct fila{
     Cliente *primeiro;
@@ -45,10 +45,10 @@ typedef struct fila{
 }Fila;
 
 /*
-    * Definicao da estrutura de dados Item.
+    * Definição da estrutura de dados Item.
     * - 1 int para o id do item.
-    * - 1 vetor de char de 50 posicoes para a descricao do item.
-    * - 1 float para o preco do item.
+    * - 1 vetor para char de 50 posições para a descrição do item.
+    * - 1 float para o preço do item.
 */
 typedef struct item{
     int id;
@@ -62,10 +62,10 @@ bool vaziaF(Fila *x);
 bool inserir(Fila *x, char *string, PilhaId *p);
 bool retirar(Fila *x, char *string, PilhaId *p);
 void criarPId(PilhaId *x);
-void destruirP(PilhaId *x);
+void destruirPId(PilhaId *x);
 bool vaziaPId(PilhaId *x);
 bool empilhaId(PilhaId *x, int id);
-bool desempilhaPId(PilhaId *x, int *id);
+bool desempilhaId(PilhaId *x, int *id);
 void imprimeF(Fila *x);
 void imprimePId(PilhaId *x);
 void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor);
@@ -141,7 +141,7 @@ int main(){
     * Nome: criarF.
     * Entrada: 1 ponteiro para Fila.
     * Processo: Caso a Fila inserida exista, atribui NULL aos ponteiros para primeiro
-    e ultimo Elementos da Fila.
+    e último Elemento da Fila.
 */
 void criarF(Fila *x){
     if(x != NULL){
@@ -153,7 +153,7 @@ void criarF(Fila *x){
 /*
     * Nome: destruirF.
     * Entrada: 1 ponteiro para Fila.
-    * Processo: Caso a Fila inserida exista, e desalocada.
+    * Processo: Caso a Fila inserida exista, é desalocada.
 */
 void destruirF(Fila *x){
     if(x != NULL){
@@ -164,7 +164,7 @@ void destruirF(Fila *x){
 /*
     * Nome: vaziaF.
     * Entrada: 1 ponteiro para Fila.
-    * Processo: Verifica se a Fila esta vazia checando se o primeiro Elemento e NULL.
+    * Processo: Verifica se a Fila está vazia checando se o primeiro Elemento é NULL.
     * Saida: True caso o primeiro seja NULL, False caso contrario.
 */
 bool vaziaF(Fila *x){
@@ -178,10 +178,11 @@ bool vaziaF(Fila *x){
 /*
     * Nome: inserir.
     * Entrada: 1 ponteiro para Fila e 1 ponteiro para char.
-    * Processo: Cria um ponteiro para Elemento e atribui a ele o ponteiro para char inserido e NULL 
-    para o proximo Elemento. Checa se a fila esta vazia, se sim, atribui o ponteiro Elemento criado
-    para o primeiro Elemento da Fila, e caso não esteja vazia, atribui ao ultimo Elemento da Fila.
-    * Saida: True caso a operacao tenha funcionado, False caso contrario.
+    * Processo: Cria um ponteiro para Cliente e atribui ao seu campo ->nome a string inserida, o topo
+    da PilhaId inserida para o topo da pilha do Cliente criada, e NULL para o próximo Cliente. Checa se 
+    a fila esta vazia, se sim, atribui o ponteiro Cliente criado para o primeiro Cliente da Fila, e 
+    caso não esteja vazia, atribui ao último Cliente da Fila.
+    * Saida: True caso a operação tenha funcionado, False caso contrario.
 */
 bool inserir(Fila *x, char *string, PilhaId *p){
     Cliente *y = (Cliente*) malloc(sizeof(Cliente));
@@ -206,12 +207,13 @@ bool inserir(Fila *x, char *string, PilhaId *p){
 /*
     * Nome: retirar.
     * Entrada: 1 ponteiro para Fila e 1 ponteiro para char.
-    * Processo: Cria um ponteiro para Elemento e aponta ele para primeiro Elemento da Fila. Checa se a fila esta vazia,
-    se não estiver, o primeiro da Fila vai receber o próximo do Elemento criado que vai apontar para NULL. Em sequencia
-    o vetor de char e copiado para o ponteiro para char inserido na funcao. O Elemento alocado e desalocado, e faz-se um
-    ultimo teste para testar se o primeiro da fila e NULL, caso seja true, o ultimo tambem recebe NULL.
-    * Saida: True caso a operacao tenha funcionado, False caso contrario.
+    * Processo: Cria um ponteiro para Cliente e aponta ele para primeiro Cliente da Fila. Checa se a fila está vazia,
+    se não estiver, o primeiro da Fila vai receber o próximo do Cliente criado que vai apontar para NULL. Em sequência
+    o vetor de char é copiado para o ponteiro para char inserido na função. O Cliente alocado é desalocado, e faz-se um
+    último teste para checar se o primeiro da fila é NULL, caso seja true, o último também recebe NULL.
+    * Saida: True caso a operação tenha funcionado, False caso contrário.
 */
+
 bool retirar(Fila *x, char *string, PilhaId *p){
     Cliente *y = x->primeiro;
     if(y == NULL){
@@ -230,30 +232,30 @@ bool retirar(Fila *x, char *string, PilhaId *p){
 }
 
 /*
-    * Nome: criarP.
-    * Entrada: 1 ponteiro para Pilha.
-    * Processo: Caso a Pilha inserida exista, atribui NULL ao ponteiro de Elemento topo.
+    * Nome: criarPId.
+    * Entrada: 1 ponteiro para PilhaId.
+    * Processo: Caso a PilhaId inserida exista, atribui NULL ao ponteiro de Elemento topo.
 */
 void criarPId(PilhaId *x){
     x->topo = NULL;
 }
 
 /*
-    * Nome: destruirP.
-    * Entrada: 1 ponteiro para Pilha.
-    * Processo: Caso a Pilha inserida exista, e desalocada.
+    * Nome: destruirPId.
+    * Entrada: 1 ponteiro para PilhaId.
+    * Processo: Caso a Pilha inserida exista, é desalocada.
 */
-void destruirP(PilhaId *x){
+void destruirPId(PilhaId *x){
     if(x != NULL){
         free(x);
     }
 }
 
 /*
-    * Nome: vaziaP.
-    * Entrada: 1 ponteiro de Pilha
-    * Processo: Verifica se a Pilha esta vazia checando se o Elemento topo e NULL.
-    * Saida: True caso o topo seja NULL, False caso contrario.
+    * Nome: vaziaPId.
+    * Entrada: 1 ponteiro de PilhaId.
+    * Processo: Verifica se a Pilha está vazia checando se o Elemento topo é NULL.
+    * Saida: True caso o topo seja NULL, False caso contrário.
 */
 bool vaziaPId(PilhaId *x){
     if(x->topo == NULL){
@@ -264,11 +266,11 @@ bool vaziaPId(PilhaId *x){
 }
 
 /*
-    * Nome: empilha.
-    * Entrada: 1 ponteiro para Pilha e 1 ponteiro para char.
-    * Processo: Cria um Elemento, atribui a ele o ponteiro de char inserido na funcao e aponta o proximo parao topo
+    * Nome: empilhaId.
+    * Entrada: 1 ponteiro para Pilha e 1 int para o id do item no cardápio.
+    * Processo: Cria um Elemento, atribui a ele o int inserido na função e aponta o próximo para o topo
     da pilha, que por sua vez aponta para o Elemento criado.
-    * Saida: True caso a operacao tenha funcionado, False caso contrario.
+    * Saida: True caso a operação tenha funcionado, False caso contrário.
 */
 bool empilhaId(PilhaId *x, int id){
     ElementoId *y = (ElementoId*) malloc(sizeof(ElementoId));
@@ -283,14 +285,14 @@ bool empilhaId(PilhaId *x, int id){
 }
 
 /*
-    * Nome: desempilha.
-    * Entrada: 1 ponteiro para Pilha e 1 ponteiro para char.
-    * Processo: Testa se a Pilha esta vazia, se não estiver, cria um ponteiro para Elemento e aponta ele para o topo da 
+    * Nome: desempilhaId.
+    * Entrada: 1 ponteiro para Pilha e 1 int para o id do item no cardápio.
+    * Processo: Testa se a Pilha está vazia, se não estiver, cria um ponteiro para Elemento e aponta ele para o topo da 
     Pilha. Em seguida, o topo da Pilha vai apontar para o proximo do Elemento criado, que vai apontar para NULL. Em sequencia
-    o vetor de char e copiado para o ponteiro para char inserido na funcao, e o Elemento criado e desalocado.
-    * Saida: True caso a operacao tenha funcionado, False caso contrario.
+    o int id do Elemento é copiado para o int id inserido na função, e o Elemento criado é desalocado.
+    * Saida: True caso a operação tenha funcionado, False caso contrário.
 */
-bool desempilhaPId(PilhaId *x, int *id){
+bool desempilhaId(PilhaId *x, int *id){
     if(!vaziaPId(x)){
         ElementoId *y = x->topo;
         x->topo = y->prox;
@@ -306,8 +308,9 @@ bool desempilhaPId(PilhaId *x, int *id){
 /*
     * Nome: imprimeF.
     * Entrada: 1 ponteiro para Fila.
-    * Processo: Cria um ponteiro para char de 30 posicoes, e, enquanto a Fila nao estiver vazia, retira um Id e coloca
-    seu valor no ponteiro de char criado e o imprime.
+    * Processo: Cria 1 PilhaId, 1 ponteiro para char de 30 posições e 1 int para o id dos itens. Enquanto
+    a Fila não estiver vazia, retira um Cliente armazenando o nome no ponteiro para char criado anteriormente
+    e aponta o topo da pilha criada para a pilha presente no Cliente, 
 */
 void imprimeF(Fila *x){
     if(vaziaF(x)){
