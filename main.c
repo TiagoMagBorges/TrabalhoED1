@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 
 /*
     * Definição da estrutura de dados ElementoId.
@@ -89,18 +90,18 @@ void destruirPC(PilhaChoc *x);
 bool vaziaPC(PilhaChoc *x);
 bool empilhaC(PilhaChoc *x, char *nome);
 bool desempilhaC(PilhaChoc *x, char *nome);
-void imprimeF(Fila *x, Item *cardapio);
+void imprimeF(Fila *x, Item *cardapio, PilhaChoc *pC);
 void imprimePId(PilhaId *x);
 void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor);
 void imprimeCardapio(Item *cardapio);
-void empilhaChocolates(PilhaChoc *x, char *str);
-void inserirCliente(Item *cardapio, Fila *f);
+void inserirCliente(Item *cardapio, Fila *f, PilhaChoc *pC, Chocolate *vetor);
 void itemCardapio(int id, char *nomecomida, float *precoUnitario, Item *cardapio);
 
 int main(){
     // Inicialização das variáveis.
     Fila *f = (Fila*) malloc(sizeof(Fila));
     PilhaId *p = (PilhaId*) malloc(sizeof(PilhaId));
+    PilhaChoc *pC = (PilhaChoc*) malloc(sizeof(PilhaChoc));
     if(f == NULL || p == NULL){
         printf("Erro de alocação.\n");
         exit(1);
@@ -109,6 +110,7 @@ int main(){
     char *str = (char*) malloc(30*sizeof(char));
     criarF(f);
     criarPId(p);
+    criarPC(pC);
 
     // Iniciando o cardapio.
     insereCardapio(1, "Pizza Bacon", 29.99, 0, cardapio);
@@ -121,6 +123,19 @@ int main(){
     insereCardapio(8, "Suco 500ml", 8, 7, cardapio);
     insereCardapio(9, "Suco 1L", 15, 8, cardapio);
     insereCardapio(10, "Cerveja Lata", 5, 9, cardapio);
+
+    // Chocolates
+    Chocolate *vetor = (Chocolate*) malloc(10*sizeof(Chocolate));
+    strcpy(vetor[0].nome, "Lolo");
+    strcpy(vetor[1].nome, "Kit Kat");
+    strcpy(vetor[2].nome, "Sonho de Valsa");
+    strcpy(vetor[3].nome, "Chokito");
+    strcpy(vetor[4].nome, "Diamante Negro");
+    strcpy(vetor[5].nome, "Ouro Branco");
+    strcpy(vetor[6].nome, "Suflair");
+    strcpy(vetor[7].nome, "Ferrero Rocher");
+    strcpy(vetor[8].nome, "Bis");
+    strcpy(vetor[9].nome, "Batom");
 
     // Menu do restaurante
     int opcao;
@@ -136,10 +151,10 @@ int main(){
                 imprimeCardapio(cardapio);
                 break;
             case 2:
-                inserirCliente(cardapio, f);
+                inserirCliente(cardapio, f, pC, vetor);
                 break;
             case 3:
-                imprimeF(f, cardapio);
+                imprimeF(f, cardapio, pC);
                 break;
             case 4:
                 //empilhaChocolate(p, str);
@@ -411,13 +426,14 @@ bool desempilhaC(PilhaChoc *x, char *nome){
     a Fila não estiver vazia, retira um Cliente armazenando o nome no ponteiro para char criado anteriormente
     e aponta o topo da pilha criada para a pilha presente no Cliente, 
 */
-void imprimeF(Fila *x, Item *cardapio){
+void imprimeF(Fila *x, Item *cardapio, PilhaChoc *pC){
     if(vaziaF(x)){
         printf("Fila Vazia.\n");
     }else{
         PilhaId *p = (PilhaId*) malloc(sizeof(PilhaId));
         criarPId(p);
         char *nome = (char*) malloc(30*sizeof(char));
+        char *choc = (char*) malloc(30*sizeof(char));
         int id;
         float preco = 0;
         while (!vaziaF(x)){
@@ -432,10 +448,13 @@ void imprimeF(Fila *x, Item *cardapio){
                 preco += precoUnitario;
                 free(nomecomida);
             }
-            printf("Preco total: %.2f\n\n", preco);
+            printf("Preco total: %.2f\n", preco);
+            desempilhaC(pC, choc);
+            printf("Chocolate ganhado: %s\n\n", choc);
         }
         free(p);
         free(nome);
+        free(choc);
     }
 }
 
@@ -485,10 +504,11 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
 }
 */
 
-void inserirCliente(Item *cardapio, Fila *f){
+void inserirCliente(Item *cardapio, Fila *f, PilhaChoc *pC, Chocolate *vetor){
     PilhaId *x = (PilhaId*) malloc(sizeof(PilhaId));
     criarPId(x);
     char *nome = (char*) malloc(30*sizeof(char));
+    char *choc = (char*) malloc(30*sizeof(char));
     int id, ctrl = 1;
     printf("Insira seu nome: ");fflush(stdin);
     gets(nome);
@@ -507,6 +527,9 @@ void inserirCliente(Item *cardapio, Fila *f){
     inserir(f, nome, x);
     free(x);
     free(nome);
+    srand(time(NULL));
+    strcpy(choc, vetor[rand()%10].nome);
+    empilhaC(pC, choc);
 }
 
 void itemCardapio(int id, char *nomecomida, float *precoUnitario, Item *cardapio){
