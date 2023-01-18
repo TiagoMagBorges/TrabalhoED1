@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <time.h>
+#include <windows.h>
 
 /*
     * Definição da estrutura de dados ElementoId.
@@ -96,6 +97,7 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
 void imprimeCardapio(Item *cardapio);
 void inserirCliente(Item *cardapio, Fila *f, PilhaChoc *pC, Chocolate *vetor);
 void itemCardapio(int id, char *nomecomida, float *precoUnitario, Item *cardapio);
+void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC);
 void cabecalho();
 
 int main(){
@@ -160,7 +162,7 @@ int main(){
                 imprimeF(f, cardapio, pC);
                 break;
             case 4:
-                printf("Funcao indisponivel no momento :(\n");
+                clientesAleatorios(f, cardapio, vetor, pC);
                 break;
             default:
                 printf("Opcao invalida\n");
@@ -444,6 +446,7 @@ void imprimeF(Fila *x, Item *cardapio, PilhaChoc *pC){
         criarPId(p);
         char *nome = (char*) malloc(30*sizeof(char));
         char *choc = (char*) malloc(30*sizeof(char));
+        char *nomecomida = (char*) malloc(30*sizeof(char));
         int id;
         float preco = 0;
         while (!vaziaF(x)){
@@ -451,13 +454,11 @@ void imprimeF(Fila *x, Item *cardapio, PilhaChoc *pC){
             printf("------------------------------------------------------------");
             printf("\nNome do Cliente: %s\nItens:\n\n", nome);
             while(!vaziaPId(p)){
-                char *nomecomida = (char*) malloc(30*sizeof(char));
                 float precoUnitario;
                 desempilhaId(p, &id);
                 itemCardapio(id, nomecomida, &precoUnitario, cardapio);
                 printf("\t%s - R$%.2f\n", nomecomida, precoUnitario);
                 preco += precoUnitario;
-                free(nomecomida);
             }
             printf("\nPreco total da comanda: %.2f\n", preco);
             desempilhaC(pC, choc);
@@ -468,6 +469,7 @@ void imprimeF(Fila *x, Item *cardapio, PilhaChoc *pC){
         free(p);
         free(nome);
         free(choc);
+        free(nomecomida);
     }
 }
 
@@ -578,4 +580,48 @@ void cabecalho(){
     printf("================================================\n");
     printf("\tRESTAURANTE ALAN TURING\n");
     printf("================================================\n\n");
+}
+
+void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC){
+    printf("Aguarde, pode demorar um pouco.\n");
+    PilhaId *x = (PilhaId*) malloc(sizeof(PilhaId));
+    Cliente *cl = (Cliente*) malloc(20*sizeof(Cliente));
+    criarPId(x);
+    char *nome = (char*) malloc(30*sizeof(char));
+    char *choc = (char*) malloc(30*sizeof(char));
+    int id, ctrl = 1, clientesGerados = 0;
+    strcpy(cl[0].nome, "Tiago");strcpy(cl[10].nome, "Ana");
+    strcpy(cl[1].nome, "Herbert");strcpy(cl[11].nome, "Sebastiao");
+    strcpy(cl[2].nome, "Marcella");strcpy(cl[12].nome, "Lucas");
+    strcpy(cl[3].nome, "Sofia");strcpy(cl[13].nome, "Ricardo");
+    strcpy(cl[4].nome, "Joao");strcpy(cl[14].nome, "Michael");
+    strcpy(cl[5].nome, "Carlos");strcpy(cl[15].nome, "Roberta");
+    strcpy(cl[6].nome, "Maria");strcpy(cl[16].nome, "Luisa");
+    strcpy(cl[7].nome, "Eduarda");strcpy(cl[17].nome, "Luiz");
+    strcpy(cl[8].nome, "Eduardo");strcpy(cl[18].nome, "Sheila");
+    strcpy(cl[9].nome, "Jose");strcpy(cl[19].nome, "Gabriela");
+
+    srand(time(NULL));
+    for(int i = 0; i < (rand()%30); i++){
+        strcpy(nome, cl[rand()%20].nome);
+        do{
+            do{
+                id = rand()%10;
+            }while (id < 0 && id > 10);
+            empilhaId(x, id);
+            do{
+                ctrl = rand()%1;
+            }while(ctrl != 1 && ctrl != 0);
+        }while(ctrl != 0);
+        inserir(f, nome, x);
+        free(x);
+        free(nome);
+        srand(time(NULL));
+        strcpy(choc, vetor[rand()%10].nome);
+        empilhaC(pC, choc);
+        clientesGerados += 1;
+        printf(".");
+        Sleep(1000);
+    }
+    printf("\nClientes gerados: %d\n", clientesGerados);
 }
