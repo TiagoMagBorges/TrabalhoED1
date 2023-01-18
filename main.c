@@ -56,6 +56,25 @@ typedef struct item{
     float preco;
 }Item;
 
+/*
+    * Definição da estrutura de dados Chocolate.
+    * - 1 vetor de 30 caracteres para o nome do chocolate.
+    * - 1 ponteiro para o próximo chocolate.
+*/
+typedef struct chocolate{
+    char nome[30];
+    struct chocolate *prox;
+}Chocolate;
+
+/*
+    * Definição da estrutura de dados PilhaChoc.
+    * - 1 ponteiro para o topo da Pilha de chocolates.
+*/
+typedef struct pilhaChoc{
+    Chocolate *topo;
+}PilhaChoc;
+
+
 void criarF(Fila *x);
 void destruirF(Fila *x);
 bool vaziaF(Fila *x);
@@ -65,13 +84,18 @@ void criarPId(PilhaId *x);
 void destruirPId(PilhaId *x);
 bool vaziaPId(PilhaId *x);
 bool empilhaId(PilhaId *x, int id);
-bool desempilhaId(PilhaId *x, int *id);
-void imprimeF(Fila *x);
+void criarPC(PilhaChoc *x);
+void destruirPC(PilhaChoc *x);
+bool vaziaPC(PilhaChoc *x);
+bool empilhaC(PilhaChoc *x, char *nome);
+bool desempilhaC(PilhaChoc *x, char *nome);
+void imprimeF(Fila *x, Item *cardapio);
 void imprimePId(PilhaId *x);
 void insereCardapio(int id, char *descricao, float preco, int indice, Item *vetor);
 void imprimeCardapio(Item *cardapio);
-void empilhaChocolates(PilhaId *x, char *str);
+void empilhaChocolates(PilhaChoc *x, char *str);
 void inserirCliente(Item *cardapio, Fila *f);
+void itemCardapio(int id, char *nomecomida, float *precoUnitario, Item *cardapio);
 
 int main(){
     // Inicialização das variáveis.
@@ -115,7 +139,7 @@ int main(){
                 inserirCliente(cardapio, f);
                 break;
             case 3:
-                imprimeF(f);
+                imprimeF(f, cardapio);
                 break;
             case 4:
                 //empilhaChocolate(p, str);
@@ -130,7 +154,7 @@ int main(){
    
     // Liberando memória.
     destruirF(f);
-    destruirP(p);
+    destruirPId(p);
     free(cardapio);
     free(str);
    
@@ -306,13 +330,88 @@ bool desempilhaId(PilhaId *x, int *id){
 }
 
 /*
+    * Nome: criarPC.
+    * Entrada: 1 ponteiro para PilhaChoc.
+    * Processo: Caso a PilhaChoc inserida exista, atribui NULL ao ponteiro de Chocolate topo.
+*/
+void criarPC(PilhaChoc *x){
+    x->topo = NULL;
+}
+
+/*
+    * Nome: destruirPC.
+    * Entrada: 1 ponteiro para PilhaChoc.
+    * Processo: Caso a Pilha inserida exista, é desalocada.
+*/
+void destruirPC(PilhaChoc *x){
+    if(x != NULL){
+        free(x);
+    }
+}
+
+/*
+    * Nome: vaziaPC.
+    * Entrada: 1 ponteiro de PilhaChoc.
+    * Processo: Verifica se a Pilha está vazia checando se o Chocolate topo é NULL.
+    * Saida: True caso o topo seja NULL, False caso contrário.
+*/
+bool vaziaPC(PilhaChoc *x){
+    if(x->topo == NULL){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/*
+    * Nome: empilhaC.
+    * Entrada: 1 ponteiro para Pilha e 1 ponteiro para char com o nome do chocolate.
+    * Processo: Cria um Chocolate, atribui a ele o ponteiro para char inserido na função e aponta o próximo para 
+    o topo da pilha, que por sua vez aponta para o Chocolate criado.
+    * Saida: True caso a operação tenha funcionado, False caso contrário.
+*/
+bool empilhaC(PilhaChoc *x, char *nome){
+    Chocolate *y = (Chocolate*) malloc(sizeof(Chocolate));
+    if(y != NULL){
+        strcpy(y->nome, nome);
+        y->prox = x->topo;
+        x->topo = y;
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+/*
+    * Nome: desempilhaC.
+    * Entrada: 1 ponteiro para Pilha e 1 ponteiro para char com o nome do chocolate.
+    * Processo: Testa se a Pilha está vazia, se não estiver, cria um ponteiro para Chocolate e aponta ele para o topo da 
+    Pilha. Em seguida, o topo da Pilha vai apontar para o proximo do Chocolate criado, que vai apontar para NULL. Em sequência
+    o ponteiro para char do Chocolate é copiado para o ponteiro para char inserido na função, e o Chocolate criado é desalocado.
+    * Saida: True caso a operação tenha funcionado, False caso contrário.
+*/
+bool desempilhaC(PilhaChoc *x, char *nome){
+    if(!vaziaPC(x)){
+        Chocolate *y = x->topo;
+        x->topo = y->prox;
+        y->prox = NULL;
+        strcpy(nome, y->nome);
+        free(y);
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/*
     * Nome: imprimeF.
     * Entrada: 1 ponteiro para Fila.
     * Processo: Cria 1 PilhaId, 1 ponteiro para char de 30 posições e 1 int para o id dos itens. Enquanto
     a Fila não estiver vazia, retira um Cliente armazenando o nome no ponteiro para char criado anteriormente
     e aponta o topo da pilha criada para a pilha presente no Cliente, 
 */
-void imprimeF(Fila *x){
+void imprimeF(Fila *x, Item *cardapio){
     if(vaziaF(x)){
         printf("Fila Vazia.\n");
     }else{
@@ -320,14 +419,20 @@ void imprimeF(Fila *x){
         criarPId(p);
         char *nome = (char*) malloc(30*sizeof(char));
         int id;
+        float preco = 0;
         while (!vaziaF(x)){
             retirar(x, nome, p);
             printf("\nNome: %s\nItens: ");
             while(!vaziaPId(p)){
-                desempilhaPId(p, &id);
-                printf("%d ", id);
+                char *nomecomida = (char*) malloc(30*sizeof(char));
+                float precoUnitario;
+                desempilhaId(p, &id);
+                itemCardapio(id, nomecomida, &precoUnitario, cardapio);
+                printf("%s - R$%.2f\n", nomecomida, precoUnitario);
+                preco += precoUnitario;
+                free(nomecomida);
             }
-            printf("\n");
+            printf("Preco total: %.2f\n\n", preco);
         }
         free(p);
         free(nome);
@@ -343,7 +448,7 @@ void imprimeF(Fila *x){
 void imprimePId(PilhaId *x){
     int y;
     while (!vaziaPId(x)){
-        desempilhaPId(x, &y);
+        desempilhaId(x, &y);
         printf("%d\n", y);
     }
 }
@@ -369,7 +474,7 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
     printf("\n");
 }
 
-/*void empilhaChocolates(Pilha *x, char *str){
+/*void empilhaChocolates(PilhaId *x, char *str){
     do{
         fflush(stdin);
         printf("Adicione um chocolate a pilha: ");
@@ -390,12 +495,25 @@ void inserirCliente(Item *cardapio, Fila *f){
     imprimeCardapio(cardapio);
     do{
         printf("Escolhe um item do cardapio: ");
+        do{
         scanf(" %d", &id);
+        }while (id < 0 && id > 10);
         empilhaId(x, id);
         printf("Mais alguma coisa? 1-Sim | 0-Nao ");
+        do{
         scanf(" %d", &ctrl);
+        }while(ctrl != 1 && ctrl != 0);
     }while(ctrl != 0);
     inserir(f, nome, x);
     free(x);
     free(nome);
+}
+
+void itemCardapio(int id, char *nomecomida, float *precoUnitario, Item *cardapio){
+    for(int i = 0; i < 10; i++){
+        if(cardapio[i].id == id){
+            strcpy(nomecomida, cardapio[i].descricao);
+            *precoUnitario = cardapio[i].preco;
+        }
+    }
 }
