@@ -96,6 +96,7 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
 void imprimeCardapio(Item *cardapio);
 void inserirCliente(Item *cardapio, Fila *f, PilhaChoc *pC, Chocolate *vetor);
 void itemCardapio(int id, char *nomecomida, float *precoUnitario, Item *cardapio);
+void cabecalho();
 
 int main(){
     // Inicialização das variáveis.
@@ -138,9 +139,11 @@ int main(){
     strcpy(vetor[9].nome, "Batom");
 
     // Menu do restaurante
+    cabecalho();
+
     int opcao;
     do{
-        printf("0 - Sair\n1 - Imprimir cardapio\n2 - Inserir Cliente na Fila\n3 - Fazer chekout de todos os clientes da fila\n");
+        printf("\n0 - Sair\n1 - Imprimir cardapio\n2 - Inserir Cliente na Fila\n3 - Fazer chekout de todos os clientes da fila\n4 - Gerar clientes automaticamente\n");
         scanf(" %d", &opcao);
 
         switch(opcao){
@@ -157,10 +160,7 @@ int main(){
                 imprimeF(f, cardapio, pC);
                 break;
             case 4:
-                //empilhaChocolate(p, str);
-                //printf("\nChocolates adiconados:\n");
-                //imprimeP(p);
-                //printf("\n");
+                printf("Funcao indisponivel no momento :(\n");
                 break;
             default:
                 printf("Opcao invalida\n");
@@ -217,10 +217,11 @@ bool vaziaF(Fila *x){
 /*
     * Nome: inserir.
     * Entrada: 1 ponteiro para Fila e 1 ponteiro para char.
-    * Processo: Cria um ponteiro para Cliente e atribui ao seu campo ->nome a string inserida, o topo
-    da PilhaId inserida para o topo da pilha do Cliente criada, e NULL para o próximo Cliente. Checa se 
-    a fila esta vazia, se sim, atribui o ponteiro Cliente criado para o primeiro Cliente da Fila, e 
-    caso não esteja vazia, atribui ao último Cliente da Fila.
+    * Processo: - Cria um ponteiro para Cliente e atribui ao seu campo ->nome a string inserida;
+                - O topo da PilhaId é inserida para o topo da pilha do Cliente criada;
+                - NULL para o próximo Cliente;
+                - Checa se a fila esta vazia, se sim, atribui o ponteiro Cliente criado para o primeiro Cliente da Fila
+                  e, caso não esteja vazia, atribui ao último Cliente da Fila.
     * Saida: True caso a operação tenha funcionado, False caso contrario.
 */
 bool inserir(Fila *x, char *string, PilhaId *p){
@@ -246,10 +247,12 @@ bool inserir(Fila *x, char *string, PilhaId *p){
 /*
     * Nome: retirar.
     * Entrada: 1 ponteiro para Fila e 1 ponteiro para char.
-    * Processo: Cria um ponteiro para Cliente e aponta ele para primeiro Cliente da Fila. Checa se a fila está vazia,
-    se não estiver, o primeiro da Fila vai receber o próximo do Cliente criado que vai apontar para NULL. Em sequência
-    o vetor de char é copiado para o ponteiro para char inserido na função. O Cliente alocado é desalocado, e faz-se um
-    último teste para checar se o primeiro da fila é NULL, caso seja true, o último também recebe NULL.
+    * Processo: - Cria um ponteiro para Cliente e aponta ele para primeiro Cliente da Fila;
+                - Checa se a fila está vazia, se não estiver, o primeiro da Fila vai receber o próximo do Cliente 
+                  criado que vai apontar para NULL;
+                - Em sequência, o vetor de char é copiado para o ponteiro char inserido na função;
+                - O Cliente alocado é desalocado, e faz-se um último teste para checar se o primeiro da fila é NULL, 
+                  caso seja true, o último também recebe NULL.
     * Saida: True caso a operação tenha funcionado, False caso contrário.
 */
 
@@ -308,7 +311,7 @@ bool vaziaPId(PilhaId *x){
     * Nome: empilhaId.
     * Entrada: 1 ponteiro para Pilha e 1 int para o id do item no cardápio.
     * Processo: Cria um Elemento, atribui a ele o int inserido na função e aponta o próximo para o topo
-    da pilha, que por sua vez aponta para o Elemento criado.
+                da pilha, que por sua vez aponta para o Elemento criado.
     * Saida: True caso a operação tenha funcionado, False caso contrário.
 */
 bool empilhaId(PilhaId *x, int id){
@@ -326,9 +329,11 @@ bool empilhaId(PilhaId *x, int id){
 /*
     * Nome: desempilhaId.
     * Entrada: 1 ponteiro para Pilha e 1 int para o id do item no cardápio.
-    * Processo: Testa se a Pilha está vazia, se não estiver, cria um ponteiro para Elemento e aponta ele para o topo da 
-    Pilha. Em seguida, o topo da Pilha vai apontar para o proximo do Elemento criado, que vai apontar para NULL. Em sequencia
-    o int id do Elemento é copiado para o int id inserido na função, e o Elemento criado é desalocado.
+    * Processo: - Testa se a Pilha está vazia, se não estiver, cria um ponteiro para Elemento e aponta ele para o topo da 
+                  Pilha;
+                - Em seguida, o topo da Pilha vai apontar para o proximo do Elemento criado, que vai apontar para NULL;
+                - Em sequencia, o int id do Elemento é copiado para o int id inserido na função, e o Elemento criado 
+                  é desalocado.
     * Saida: True caso a operação tenha funcionado, False caso contrário.
 */
 bool desempilhaId(PilhaId *x, int *id){
@@ -381,8 +386,9 @@ bool vaziaPC(PilhaChoc *x){
 /*
     * Nome: empilhaC.
     * Entrada: 1 ponteiro para Pilha e 1 ponteiro para char com o nome do chocolate.
-    * Processo: Cria um Chocolate, atribui a ele o ponteiro para char inserido na função e aponta o próximo para 
-    o topo da pilha, que por sua vez aponta para o Chocolate criado.
+    * Processo: - Cria um Chocolate;
+                - Atribui a ele o ponteiro para char inserido na função e aponta o próximo para 
+                  o topo da pilha que, por sua vez, aponta para o Chocolate criado.
     * Saida: True caso a operação tenha funcionado, False caso contrário.
 */
 bool empilhaC(PilhaChoc *x, char *nome){
@@ -401,9 +407,11 @@ bool empilhaC(PilhaChoc *x, char *nome){
 /*
     * Nome: desempilhaC.
     * Entrada: 1 ponteiro para Pilha e 1 ponteiro para char com o nome do chocolate.
-    * Processo: Testa se a Pilha está vazia, se não estiver, cria um ponteiro para Chocolate e aponta ele para o topo da 
-    Pilha. Em seguida, o topo da Pilha vai apontar para o proximo do Chocolate criado, que vai apontar para NULL. Em sequência
-    o ponteiro para char do Chocolate é copiado para o ponteiro para char inserido na função, e o Chocolate criado é desalocado.
+    * Processo: - Testa se a Pilha está vazia, se não estiver, cria um ponteiro para Chocolate e aponta ele para o topo da 
+                  Pilha;
+                - Em seguida, o topo da Pilha vai apontar para o proximo do Chocolate criado, que vai apontar para NULL;
+                - Em sequência o ponteiro para char do Chocolate é copiado para o ponteiro para char inserido na função, 
+                  e o Chocolate criado é desalocado.
     * Saida: True caso a operação tenha funcionado, False caso contrário.
 */
 bool desempilhaC(PilhaChoc *x, char *nome){
@@ -421,12 +429,14 @@ bool desempilhaC(PilhaChoc *x, char *nome){
 
 /*
     * Nome: imprimeF.
-    * Entrada: 1 ponteiro para Fila.
-    * Processo: Cria 1 PilhaId, 1 ponteiro para char de 30 posições e 1 int para o id dos itens. Enquanto
-    a Fila não estiver vazia, retira um Cliente armazenando o nome no ponteiro para char criado anteriormente
-    e aponta o topo da pilha criada para a pilha presente no Cliente, 
+    * Entrada: 1 ponteiro para Fila, 1 vetor de Itens(cardápio) e 1 ponteiro para PilhaChoc.
+    * Processo: - Cria 1 PilhaId;
+                - 1 ponteiro para char de 30 posições e 1 int para o id dos itens;
+                - Enquanto a Fila não estiver vazia, retira um Cliente armazenando o nome no ponteiro para char
+                  criado anteriormente e aponta o topo da pilha criada para a pilha presente no Cliente.
 */
 void imprimeF(Fila *x, Item *cardapio, PilhaChoc *pC){
+    cabecalho();
     if(vaziaF(x)){
         printf("Fila Vazia.\n");
     }else{
@@ -438,19 +448,22 @@ void imprimeF(Fila *x, Item *cardapio, PilhaChoc *pC){
         float preco = 0;
         while (!vaziaF(x)){
             retirar(x, nome, p);
-            printf("\nNome: %s\nItens: ");
+            printf("------------------------------------------------------------");
+            printf("\nNome do Cliente: %s\nItens:\n\n", nome);
             while(!vaziaPId(p)){
                 char *nomecomida = (char*) malloc(30*sizeof(char));
                 float precoUnitario;
                 desempilhaId(p, &id);
                 itemCardapio(id, nomecomida, &precoUnitario, cardapio);
-                printf("%s - R$%.2f\n", nomecomida, precoUnitario);
+                printf("\t%s - R$%.2f\n", nomecomida, precoUnitario);
                 preco += precoUnitario;
                 free(nomecomida);
             }
-            printf("Preco total: %.2f\n", preco);
+            printf("\nPreco total da comanda: %.2f\n", preco);
             desempilhaC(pC, choc);
-            printf("Chocolate ganhado: %s\n\n", choc);
+            printf("Chocolate dado como brinde: %s\n", choc);
+            printf("------------------------------------------------------------\n");
+            preco = 0;
         }
         free(p);
         free(nome);
@@ -459,10 +472,10 @@ void imprimeF(Fila *x, Item *cardapio, PilhaChoc *pC){
 }
 
 /*
-    * Nome: imprimeP.
+    * Nome: imprimePId.
     * Entrada: 1 ponteiro para Pilha.
-    * Processo: Cria um ponteiro para char de 30 posicoes, e, enquanto a Pilha nao estiver vazia, desempilha um Elemento e coloca
-    seu valor no ponteiro de char criado e o imprime.
+    * Processo: Cria um ponteiro para char de 30 posicoes e, enquanto a Pilha nao estiver vazia, desempilha um Elemento 
+                e coloca seu valor no ponteiro de char criado e o imprime.
 */
 void imprimePId(PilhaId *x){
     int y;
@@ -484,7 +497,14 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
     vetor[indice].preco = preco;
 }
 
+/*
+    * Nome: imprimeCardapio.
+    * Entrada: 1 vetor de Itens.
+    * Processo: - Recebe a função cabecalho();
+                - Dentro de um for imprime as informações de cada item do vetor(cardápio).
+*/
  void imprimeCardapio(Item *vetor){
+    cabecalho();
     printf("\n");
     for(int i = 0; i < 10; i++){
         printf("\t%d. %s - %.2f", vetor[i].id, vetor[i].descricao, vetor[i].preco);
@@ -493,18 +513,19 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
     printf("\n");
 }
 
-/*void empilhaChocolates(PilhaId *x, char *str){
-    do{
-        fflush(stdin);
-        printf("Adicione um chocolate a pilha: ");
-        gets(str);
-        empilha(x, str);
-        printf("\n\tDeseja continuar adicionando?\n\t1- Sim    0 - Nao\n");
-    }while(getch() == '1');
-}
+/*
+    * Nome: inserirCliente.
+    * Entrada: 1 vetor de Itens(cardápio), 1 ponteiro para Fila, 1 ponteiro para PilhaChoc, 1 ponteiro para Chocolate
+    * Processo: - Recebe a função cabecalho();
+                - Cria 1 PilhaId;
+                - 1 vetor de char "nome" com 30 posições para armazenar o nome do cliente inserido temporariamente;
+                - 1 vetor de char "choc" com 30 posições para armazenar o nome do chocolate atribuido ao cliente usando 
+                  a função "rand()";
+                - Imprime o cardápio e seleciona 1 item por vez do cardápio até que a condição de parada seja 
+                  satisfeita: ctrl != 1.
 */
-
 void inserirCliente(Item *cardapio, Fila *f, PilhaChoc *pC, Chocolate *vetor){
+    cabecalho();
     PilhaId *x = (PilhaId*) malloc(sizeof(PilhaId));
     criarPId(x);
     char *nome = (char*) malloc(30*sizeof(char));
@@ -532,6 +553,12 @@ void inserirCliente(Item *cardapio, Fila *f, PilhaChoc *pC, Chocolate *vetor){
     empilhaC(pC, choc);
 }
 
+/*
+    * Nome: itemCardapio.
+    * Entrada: 1 int id, 1 ponteiro para char com o nome da comida, 1 ponteiro para float com o preço unitário da comida, 1 vetor de Itens(cardápio).
+    * Processo: Dentro de um for, confere se o id do item do cardápio é o mesmo passado na chamada da função,
+                caso seja, copia para "nomeComida" a string contida em "cardapio[i].descricao" e atribui para o float "precoUnitario" o valor contido em "cardapio[i].preco".
+*/
 void itemCardapio(int id, char *nomecomida, float *precoUnitario, Item *cardapio){
     for(int i = 0; i < 10; i++){
         if(cardapio[i].id == id){
@@ -539,4 +566,16 @@ void itemCardapio(int id, char *nomecomida, float *precoUnitario, Item *cardapio
             *precoUnitario = cardapio[i].preco;
         }
     }
+}
+
+/*
+    * Nome: cabecalho.
+    * Entrada: Não possui entrada.
+    * Processo: Cria um cabeçalho para ser inserido no início das outras funções que limpa a tela com "system("cls")" e printa o nome do restaurante.
+*/
+void cabecalho(){
+    system("cls");
+    printf("================================================\n");
+    printf("\tRESTAURANTE ALAN TURING\n");
+    printf("================================================\n\n");
 }
