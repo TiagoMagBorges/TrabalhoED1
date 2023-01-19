@@ -97,7 +97,7 @@ void insereCardapio(int id, char *descricao, float preco, int indice, Item *veto
 void imprimeCardapio(Item *cardapio);
 void inserirCliente(Item *cardapio, Fila *f, PilhaChoc *pC, Chocolate *vetor);
 void itemCardapio(int id, char *nomecomida, float *precoUnitario, Item *cardapio);
-void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC);
+void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC, int qtd);
 void cabecalho();
 
 int main(){
@@ -111,6 +111,7 @@ int main(){
     }
     Item *cardapio = (Item*) malloc(10*sizeof(Item));
     char *str = (char*) malloc(30*sizeof(char));
+    int x;
     criarF(f);
     criarPId(p);
     criarPC(pC);
@@ -162,7 +163,9 @@ int main(){
                 imprimeF(f, cardapio, pC);
                 break;
             case 4:
-                clientesAleatorios(f, cardapio, vetor, pC);
+                printf("Numero de clientes a ser gerado: ");
+                scanf(" %d", &x);fflush(stdin);
+                clientesAleatorios(f, cardapio, vetor, pC, x);
                 break;
             default:
                 printf("Opcao invalida\n");
@@ -582,14 +585,14 @@ void cabecalho(){
     printf("================================================\n\n");
 }
 
-void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC){
-    printf("Aguarde, pode demorar um pouco.\n");
+void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC, int qtd){
+    printf("Os clientes serao gerados em %d segundos, aguarde.\n", qtd);
     PilhaId *x = (PilhaId*) malloc(sizeof(PilhaId));
     Cliente *cl = (Cliente*) malloc(20*sizeof(Cliente));
     criarPId(x);
     char *nome = (char*) malloc(30*sizeof(char));
     char *choc = (char*) malloc(30*sizeof(char));
-    int id, ctrl = 1, clientesGerados = 0;
+    int id, ctrl = 1;
     strcpy(cl[0].nome, "Tiago");strcpy(cl[10].nome, "Ana");
     strcpy(cl[1].nome, "Herbert");strcpy(cl[11].nome, "Sebastiao");
     strcpy(cl[2].nome, "Marcella");strcpy(cl[12].nome, "Lucas");
@@ -602,7 +605,7 @@ void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC
     strcpy(cl[9].nome, "Jose");strcpy(cl[19].nome, "Gabriela");
 
     srand(time(NULL));
-    for(int i = 0; i < (rand()%30); i++){
+    for(int i = 0; i < qtd; i++){
         strcpy(nome, cl[rand()%20].nome);
         do{
             do{
@@ -619,9 +622,8 @@ void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC
         srand(time(NULL));
         strcpy(choc, vetor[rand()%10].nome);
         empilhaC(pC, choc);
-        clientesGerados += 1;
         printf(".");
         Sleep(1000);
     }
-    printf("\nClientes gerados: %d\n", clientesGerados);
+    printf("\nClientes gerados com sucesso.\n");
 }
