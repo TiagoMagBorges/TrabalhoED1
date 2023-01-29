@@ -585,6 +585,11 @@ void cabecalho(){
     printf("================================================\n\n");
 }
 
+/*
+    * Nome: clientesAleatorios.
+    * Entrada: 1 ponteiro para Fila, 1 vetor de Itens(cardápio), 1 ponteiro para PilhaChoc, 1 ponteiro para Chocolate, e 1 int qtd.
+    * Processo: 
+*/
 void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC, int qtd){
     printf("Os clientes serao gerados em %d segundos, aguarde.\n", qtd);
     PilhaId *x = (PilhaId*) malloc(sizeof(PilhaId));
@@ -617,13 +622,13 @@ void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC
             }while(ctrl != 1 && ctrl != 0);
         }while(ctrl != 0);
         inserir(f, nome, x);
-        free(x);
-        free(nome);
         srand(time(NULL));
         strcpy(choc, vetor[rand()%10].nome);
         empilhaC(pC, choc);
         printf(".");
         Sleep(1000);
     }
+    free(x);
+    free(nome);
     printf("\nClientes gerados com sucesso.\n");
 }
