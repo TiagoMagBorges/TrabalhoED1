@@ -595,11 +595,9 @@ void cabecalho(){
                 - Ainda dentro do loop, cada cliente criado, junto com a sua pilha de ids, é inserido na fila de clientes para
                   fazer checkout;
                 - Após o fim do loop, a memória destinada a pilha x e e o vetor de clientes cl é liberada.- Cria 1 PilhaId;
-                - 
                 - 1 vetor de char "nome" com 30 posições para armazenar o nome do cliente atribuido a ele usando
                 - 1 vetor de char "choc" com 30 posições para armazenar o nome do chocolate atribuido ao cliente usando 
                   a função "rand()";
-                - 
 */
 void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC, int qtd){
     printf("Os clientes serao gerados em %d segundos, aguarde.\n", qtd);

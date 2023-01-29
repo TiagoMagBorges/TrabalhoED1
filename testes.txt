@@ -1,0 +1,551 @@
+	
+	Teste de Clientes feito manualmente:
+
+------------------------------------------------------------
+Nome do Cliente: Herbert
+Itens:
+	Refrigerante Lata - R$5.00
+	Pizza Bacon - R$29.99
+
+Preco total do comando: 34.99
+Chocolate dado como brinde: Lolo
+
+------------------------------------------------------------
+
+Nome do Cliente: Tiago
+Itens:
+	Refrigerante Lata - R$5.00
+	Refrigerante Lata - R$5.00
+	Pizza Marguerita - R$34.99
+
+Preco total do comando: 44.99
+Chocolate dado como brinde: Kit Kat
+
+------------------------------------------------------------
+
+Nome do Cliente: Marcos
+Itens:
+	Suco 500ml - R$8.00
+	Cerveja Lata - R$5.00
+	Cerveja Lata - R$5.00
+	Pizza Marguerita - R$34.99
+	Pizza Frango e Catupiry - R$39.99
+
+Preco total do comando: 92.90
+Chocolate dado como brinde: Sonho de Valsa
+------------------------------------------------------------
+
+Nome do Cliente: Lucas
+Itens:
+	Suco 1ml - R$15.00
+	Pizza Moda - R$49.99
+	Refrigerante Lata - R$5.00
+	Pizza Bacon - R$29.99
+
+Preco total do comando: 92.90
+Chocolate dado como brinde: Chokito
+
+
+=========================================================================================================================
+
+	Testes de Clientes aleatórios:
+
+------------------------------------------------------------
+Nome do Cliente: Herbert
+Itens:
+
+        Suco 500ml - R$8.00
+
+Preco total da comanda: 8.00
+Chocolate dado como brinde: Kit Kat
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Eduardo
+Itens:
+
+        Pizza Moda - R$49.99
+        Suco 500ml - R$8.00
+
+Preco total da comanda: 57.99
+Chocolate dado como brinde: Bis
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Luisa
+Itens:
+
+        Pizza Bacon - R$29.99
+        Pizza Moda - R$49.99
+
+Preco total da comanda: 79.98
+Chocolate dado como brinde: Ouro Branco
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Luisa
+Itens:
+
+        Pizza Moda - R$49.99
+        Pizza Bacon - R$29.99
+
+Preco total da comanda: 79.98
+Chocolate dado como brinde: Sonho de Valsa
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Carlos
+Itens:
+
+        Pizza Bacon - R$29.99
+        Pizza Moda - R$49.99
+
+Preco total da comanda: 79.98
+Chocolate dado como brinde: Bis
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Ricardo
+Itens:
+
+        Pizza Moda - R$49.99
+        Pizza Bacon - R$29.99
+
+Preco total da comanda: 79.98
+Chocolate dado como brinde: Ouro Branco
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Michael
+Itens:
+
+        Pizza Marguerita - R$34.99
+        Pizza Moda - R$49.99
+
+Preco total da comanda: 84.98
+Chocolate dado como brinde: Sonho de Valsa
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Marcella
+Itens:
+
+        Refrigerante Lata - R$5.00
+        Pizza Marguerita - R$34.99
+
+Preco total da comanda: 39.99
+Chocolate dado como brinde: Batom
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sebastiao
+Itens:
+
+        Pizza Marguerita - R$34.99
+        Refrigerante Lata - R$5.00
+
+Preco total da comanda: 39.99
+Chocolate dado como brinde: Ouro Branco
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sebastiao
+Itens:
+
+        Refrigerante Lata - R$5.00
+        Pizza Marguerita - R$34.99
+
+Preco total da comanda: 39.99
+Chocolate dado como brinde: Sonho de Valsa
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Gabriela
+Itens:
+
+        Pizza Marguerita - R$34.99
+        Refrigerante Lata - R$5.00
+
+Preco total da comanda: 39.99
+Chocolate dado como brinde: Batom
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Eduardo
+Itens:
+
+        Refrigerante 2L - R$7.00
+        Pizza Marguerita - R$34.99
+
+Preco total da comanda: 41.99
+Chocolate dado como brinde: Ouro Branco
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Eduardo
+Itens:
+
+        Pizza Frango e Catupiry - R$39.99
+        Refrigerante 2L - R$7.00
+
+Preco total da comanda: 46.99
+Chocolate dado como brinde: Sonho de Valsa
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Luiz
+Itens:
+
+        Suco 1L - R$15.00
+        Pizza Frango e Catupiry - R$39.99
+
+Preco total da comanda: 54.99
+Chocolate dado como brinde: Batom
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Carlos
+Itens:
+
+        Pizza Frango e Catupiry - R$39.99
+        Suco 1L - R$15.00
+
+Preco total da comanda: 54.99
+Chocolate dado como brinde: Suflair
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Carlos
+Itens:
+
+        Suco 1L - R$15.00
+        Pizza Frango e Catupiry - R$39.99
+
+Preco total da comanda: 54.99
+Chocolate dado como brinde: Sonho de Valsa
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Michael
+Itens:
+
+        Pizza Frango e Catupiry - R$39.99
+        Suco 1L - R$15.00
+
+Preco total da comanda: 54.99
+Chocolate dado como brinde: Batom
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Marcella
+Itens:
+
+        Suco 1L - R$15.00
+        Pizza Frango e Catupiry - R$39.99
+
+Preco total da comanda: 54.99
+Chocolate dado como brinde: Suflair
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sofia
+Itens:
+
+        Pizza 4 Queijos - R$44.99
+        Pizza 4 Queijos - R$44.99
+
+Preco total da comanda: 89.98
+Chocolate dado como brinde: Chokito
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sebastiao
+Itens:
+
+        Pizza 4 Queijos - R$44.99
+        Pizza 4 Queijos - R$44.99
+
+Preco total da comanda: 89.98
+Chocolate dado como brinde: Batom
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Gabriela
+Itens:
+
+        Pizza 4 Queijos - R$44.99
+        Pizza 4 Queijos - R$44.99
+
+Preco total da comanda: 89.98
+Chocolate dado como brinde: Suflair
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Tiago
+Itens:
+
+        Pizza 4 Queijos - R$44.99
+        Pizza 4 Queijos - R$44.99
+
+Preco total da comanda: 89.98
+Chocolate dado como brinde: Chokito
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Eduardo
+Itens:
+
+        Pizza 4 Queijos - R$44.99
+        Pizza 4 Queijos - R$44.99
+
+Preco total da comanda: 89.98
+Chocolate dado como brinde: Lolo
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Luiz
+Itens:
+
+        Pizza Bacon - R$29.99
+        Pizza 4 Queijos - R$44.99
+
+Preco total da comanda: 74.98
+Chocolate dado como brinde: Suflair
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Luiz
+Itens:
+
+        Refrigerante 2L - R$7.00
+        Pizza Bacon - R$29.99
+
+Preco total da comanda: 36.99
+Chocolate dado como brinde: Chokito
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Carlos
+Itens:
+
+        Pizza Bacon - R$29.99
+        Refrigerante 2L - R$7.00
+
+Preco total da comanda: 36.99
+Chocolate dado como brinde: Lolo
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Michael
+Itens:
+
+        Refrigerante 2L - R$7.00
+        Pizza Bacon - R$29.99
+
+Preco total da comanda: 36.99
+Chocolate dado como brinde: Suflair
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Michael
+Itens:
+
+        Pizza Bacon - R$29.99
+        Refrigerante 2L - R$7.00
+
+Preco total da comanda: 36.99
+Chocolate dado como brinde: Chokito
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sofia
+Itens:
+
+        Refrigerante 2L - R$7.00
+        Pizza Bacon - R$29.99
+
+Preco total da comanda: 36.99
+Chocolate dado como brinde: Lolo
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sebastiao
+Itens:
+
+        Pizza Marguerita - R$34.99
+        Refrigerante 2L - R$7.00
+
+Preco total da comanda: 41.99
+Chocolate dado como brinde: Ferrero Rocher
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sebastiao
+Itens:
+
+        Suco 500ml - R$8.00
+        Pizza Marguerita - R$34.99
+
+Preco total da comanda: 42.99
+Chocolate dado como brinde: Chokito
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Tiago
+Itens:
+
+        Pizza Marguerita - R$34.99
+        Suco 500ml - R$8.00
+
+Preco total da comanda: 42.99
+Chocolate dado como brinde: Lolo
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Eduardo
+Itens:
+
+        Suco 500ml - R$8.00
+        Pizza Marguerita - R$34.99
+
+Preco total da comanda: 42.99
+Chocolate dado como brinde: Ferrero Rocher
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Jose
+Itens:
+
+        Pizza Marguerita - R$34.99
+        Suco 500ml - R$8.00
+
+Preco total da comanda: 42.99
+Chocolate dado como brinde: Diamante Negro
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Luiz
+Itens:
+
+        Suco 500ml - R$8.00
+        Pizza Marguerita - R$34.99
+
+Preco total da comanda: 42.99
+Chocolate dado como brinde: Lolo
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Carlos
+Itens:
+
+        Pizza Moda - R$49.99
+        Suco 500ml - R$8.00
+
+Preco total da comanda: 57.99
+Chocolate dado como brinde: Ferrero Rocher
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Maria
+Itens:
+
+        Suco 1L - R$15.00
+        Pizza Moda - R$49.99
+
+Preco total da comanda: 64.99
+Chocolate dado como brinde: Diamante Negro
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Michael
+Itens:
+
+        Pizza Moda - R$49.99
+        Suco 1L - R$15.00
+
+Preco total da comanda: 64.99
+Chocolate dado como brinde: Kit Kat
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sofia
+Itens:
+
+        Suco 1L - R$15.00
+        Pizza Moda - R$49.99
+
+Preco total da comanda: 64.99
+Chocolate dado como brinde: Ferrero Rocher
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sofia
+Itens:
+
+        Pizza Moda - R$49.99
+        Suco 1L - R$15.00
+
+Preco total da comanda: 64.99
+Chocolate dado como brinde: Diamante Negro
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Lucas
+Itens:
+
+        Suco 1L - R$15.00
+        Pizza Moda - R$49.99
+
+Preco total da comanda: 64.99
+Chocolate dado como brinde: Kit Kat
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Tiago
+Itens:
+
+        Refrigerante Lata - R$5.00
+        Suco 1L - R$15.00
+
+Preco total da comanda: 20.00
+Chocolate dado como brinde: Bis
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Eduardo
+Itens:
+
+        Suco 1L - R$15.00
+        Refrigerante Lata - R$5.00
+
+Preco total da comanda: 20.00
+Chocolate dado como brinde: Diamante Negro
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Jose
+Itens:
+
+        Refrigerante Lata - R$5.00
+        Refrigerante Lata - R$5.00
+
+Preco total da comanda: 10.00
+Chocolate dado como brinde: Kit Kat
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Luiz
+Itens:
+
+        Refrigerante Lata - R$5.00
+        Refrigerante Lata - R$5.00
+
+Preco total da comanda: 10.00
+Chocolate dado como brinde: Bis
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Maria
+Itens:
+
+        Refrigerante Lata - R$5.00
+        Refrigerante Lata - R$5.00
+
+Preco total da comanda: 10.00
+Chocolate dado como brinde: Diamante Negro
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Maria
+Itens:
+
+        Pizza Frango e Catupiry - R$39.99
+        Refrigerante Lata - R$5.00
+
+Preco total da comanda: 44.99
+Chocolate dado como brinde: Kit Kat
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Michael
+Itens:
+
+        Refrigerante 2L - R$7.00
+        Pizza Frango e Catupiry - R$39.99
+
+Preco total da comanda: 46.99
+Chocolate dado como brinde: Bis
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sofia
+Itens:
+
+        Pizza Frango e Catupiry - R$39.99
+        Refrigerante 2L - R$7.00
+
+Preco total da comanda: 46.99
+Chocolate dado como brinde: Ouro Branco
+------------------------------------------------------------
+------------------------------------------------------------
+Nome do Cliente: Sofia
+Itens:
+
+        Refrigerante 2L - R$7.00
+        Pizza Frango e Catupiry - R$39.99
+
+Preco total da comanda: 46.99
+Chocolate dado como brinde: Kit Kat
+------------------------------------------------------------
