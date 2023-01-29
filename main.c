@@ -587,7 +587,14 @@ void cabecalho(){
 /*
     * Nome: clientesAleatorios.
     * Entrada: 1 ponteiro para Fila, 1 vetor de Itens(cardápio), 1 ponteiro para PilhaChoc, 1 ponteiro para Chocolate, e 1 int qtd.
-    * Processo: - Cria 1 PilhaId;
+    * Processo: - Cria uma pilha x de ids e um vetor cl de clientes;
+                - Inicializa apenas os nomes dos clientes;
+                - Cria um loop que escolhe um indice aleatório para nome do cliente, um id aleatório do cardápio e um número
+                  aleatório entre 0 e 1 para decidir se o cliente atual escolhido aleatoriamente continua escolhendo os ids dos
+                  produtos ou não. A condição de parada do loop é a variável "qtd", presente na entrada;
+                - Ainda dentro do loop, cada cliente criado, junto com a sua pilha de ids, é inserido na fila de clientes para
+                  fazer checkout;
+                - Após o fim do loop, a memória destinada a pilha x e e o vetor de clientes cl é liberada.- Cria 1 PilhaId;
                 - 
                 - 1 vetor de char "nome" com 30 posições para armazenar o nome do cliente atribuido a ele usando
                 - 1 vetor de char "choc" com 30 posições para armazenar o nome do chocolate atribuido ao cliente usando 
