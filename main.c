@@ -260,7 +260,6 @@ bool inserir(Fila *x, char *string, PilhaId *p){
                   caso seja true, o último também recebe NULL.
     * Saida: True caso a operação tenha funcionado, False caso contrário.
 */
-
 bool retirar(Fila *x, char *string, PilhaId *p){
     Cliente *y = x->primeiro;
     if(y == NULL){
@@ -588,7 +587,12 @@ void cabecalho(){
 /*
     * Nome: clientesAleatorios.
     * Entrada: 1 ponteiro para Fila, 1 vetor de Itens(cardápio), 1 ponteiro para PilhaChoc, 1 ponteiro para Chocolate, e 1 int qtd.
-    * Processo: 
+    * Processo: - Cria 1 PilhaId;
+                - 
+                - 1 vetor de char "nome" com 30 posições para armazenar o nome do cliente atribuido a ele usando
+                - 1 vetor de char "choc" com 30 posições para armazenar o nome do chocolate atribuido ao cliente usando 
+                  a função "rand()";
+                - 
 */
 void clientesAleatorios(Fila *f, Item *cardapio, Chocolate *vetor, PilhaChoc *pC, int qtd){
     printf("Os clientes serao gerados em %d segundos, aguarde.\n", qtd);
